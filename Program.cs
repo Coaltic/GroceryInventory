@@ -7,6 +7,8 @@
 //};
 
 bool shopping = true;
+bool searching = true;
+dynamic activeSearch;
 
 
 List<Cheese> cheeseList = new()
@@ -64,7 +66,35 @@ while (shopping)
         Console.WriteLine("Please enter the Name of the cheese you want to search for");
         Console.WriteLine();
 
-        Console.ReadLine();
+        while (searching)
+        {
+
+            activeSearch = Console.ReadLine();
+
+            if (cheeseList.Any(cheese => cheese.Name.ToLower() == activeSearch.ToLower())) // ToLower() checks lower cases
+            {
+
+
+                Cheese cheese = cheeseList.FirstOrDefault(c => c.Name.ToLower() == activeSearch.ToLower());
+                Console.Clear();
+                Console.WriteLine($"{cheese.Name} cheese has an ID of {cheese.Id}, costs ${cheese.Price} and has a strength of {cheese.Strength}");
+                Console.WriteLine();
+                Console.WriteLine("Search again? or press X to return");
+                Console.WriteLine();
+
+            }
+            else if (activeSearch == "x")
+            {
+                searching = false;
+                Console.Clear();
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Sorry, that cheese is unavailable");
+                Console.WriteLine();
+            }
+        }
     }
     else if (input.KeyChar == '3')
     {
